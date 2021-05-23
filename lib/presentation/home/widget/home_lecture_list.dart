@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture/symbols/color_list.dart';
+import 'package:lecture/symbols/screen_list.dart';
 
 import '../../helper.dart';
 
-class HomeLectureList extends StatelessWidget {
+class HomeLectureList extends StatefulWidget {
   const HomeLectureList({Key? key}) : super(key: key);
 
+  @override
+  _HomeLectureListState createState() => _HomeLectureListState();
+}
+
+class _HomeLectureListState extends State<HomeLectureList> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,20 +68,25 @@ class HomeLectureList extends StatelessWidget {
   }
 
   Widget _buildShowTotal() {
-    return Container(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Center(
-        child: Text(
-          "전체 보기",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Roboto",
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.w400,
-            fontSize: 10,
-            height: Helper.getTextHeightRatio(height: 14, fontSize: 10),
-            letterSpacing: 0,
-            color: ColorList.deepBlue,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(ScreenList.lecturesTotal);
+      },
+      child: Container(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: Center(
+          child: Text(
+            "전체 보기",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: "Roboto",
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.w400,
+              fontSize: 10,
+              height: Helper.getTextHeightRatio(height: 14, fontSize: 10),
+              letterSpacing: 0,
+              color: ColorList.deepBlue,
+            ),
           ),
         ),
       ),

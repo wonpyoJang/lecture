@@ -17,13 +17,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorList.homeBackground,
-      appBar: buildAppBar(),
+      appBar: _buildAppBar(),
       bottomNavigationBar: HomeBottomNavBar(),
-      body: buildBody(context),
+      body: _buildBody(context),
     );
   }
 
-  Widget buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context) {
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  PreferredSize buildAppBar() {
+  PreferredSize _buildAppBar() {
     return PreferredSize(
       preferredSize: Size.fromHeight(60),
       child: Container(
