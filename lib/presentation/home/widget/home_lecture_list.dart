@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lecture/data/model/course.dart';
 import 'package:lecture/symbols/color_list.dart';
 import 'package:lecture/symbols/screen_list.dart';
 
 import '../../helper.dart';
 
 class HomeLectureList extends StatefulWidget {
-  const HomeLectureList({Key? key}) : super(key: key);
+  const HomeLectureList({Key? key, required this.courses}) : super(key: key);
+  final List<Course> courses;
 
   @override
   _HomeLectureListState createState() => _HomeLectureListState();
@@ -33,12 +35,12 @@ class _HomeLectureListState extends State<HomeLectureList> {
                 padding: const EdgeInsets.only(left: 16.0, top: 11.0),
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                itemCount: 100,
+                itemCount: widget.courses.length,
                 separatorBuilder: (context, index) {
                   return SizedBox(width: 13.0);
                 },
                 itemBuilder: (context, index) {
-                  return _buildLectureCardItem();
+                  return _buildLectureCardItem(item: widget.courses[index]);
                 }),
           )
         ],
@@ -93,14 +95,14 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildLectureCardItem() {
+  Widget _buildLectureCardItem({required Course item}) {
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _buildCardUpperPart(),
-          _buildCardLowerPart(),
+          _buildCardUpperPart(item: item),
+          _buildCardLowerPart(item: item),
         ],
       ),
       decoration: BoxDecoration(boxShadow: [
@@ -114,7 +116,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildCardLowerPart() {
+  Widget _buildCardLowerPart({required Course item}) {
     return Container(
       width: 160,
       height: 64,
@@ -129,7 +131,8 @@ class _HomeLectureListState extends State<HomeLectureList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 10),
-          _buildTeacherName(),
+          // todo: 선생님 이름이 API에 존재하는지 확인.
+          _buildTeacherName(teacherName: null),
           SizedBox(height: 7.0),
           _buildOfflineButton()
         ],
@@ -137,7 +140,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildCardUpperPart() {
+  Widget _buildCardUpperPart({required Course item}) {
     return Container(
       width: 160,
       height: 136,
@@ -154,9 +157,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
             SizedBox(
               height: 17,
             ),
-            buildLectureImage(),
+            _buildLectureImage(image: item.logoFileUrl),
             SizedBox(height: 14.0),
-            _buildLectureTitle(),
+            _buildLectureTitle(title: item.title),
           ],
         ),
       ),
@@ -191,9 +194,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildTeacherName() {
+  Widget _buildTeacherName({required String? teacherName}) {
     return Text(
-      "유준배 선생님",
+      teacherName ?? "미정",
       textAlign: TextAlign.center,
       style: TextStyle(
         fontFamily: "Roboto",
@@ -207,9 +210,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildLectureTitle() {
+  Widget _buildLectureTitle({required String? title}) {
     return Text(
-      "캐글 문제 풀이로 배우는 데이터 분석",
+      title ?? "제목 없음",
       textAlign: TextAlign.center,
       style: TextStyle(
         fontFamily: "Roboto",
@@ -223,8 +226,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget buildLectureImage() {
-    return Image.network("https://picsum.photos/200/300",
-        width: 44, height: 44, fit: BoxFit.cover);
+  Widget _buildLectureImage({required String? image}) {
+    return image != null
+        ? Image.network(image, width: 44, height: 44, fit: BoxFit.cover)
+        : Container(width: 44, height: 44, color: Colors.grey);
   }
 }

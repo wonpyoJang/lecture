@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lecture/data/model/course.dart';
+import 'package:lecture/presentation/widget/empty_screen.dart';
 import 'package:lecture/presentation/widget/home_bottom_navbar.dart';
 import 'package:lecture/symbols/color_list.dart';
+import 'home_bloc/home_bloc.dart';
 import 'widget/home_lecture_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -82,10 +86,42 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildRecommendedLecture() {
-    return HomeLectureList();
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is HomeFailure) {
+          return EmptyScreen(title: "서버 연결에 실패했습니다.");
+        } else if (state is HomeSuccess) {
+          return _buildSuccessLectureList(state.recommendedCourses);
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 
   Widget _buildFreeLecture() {
-    return HomeLectureList();
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is HomeFailure) {
+          return EmptyScreen(title: "서버 연결에 실패했습니다.");
+        } else if (state is HomeSuccess) {
+          return _buildSuccessLectureList(state.freeCourses);
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Widget _buildSuccessLectureList(
+    List<Course>? courses,
+  ) {
+    if (courses == null) {
+      return EmptyScreen(title: "강좌 목록이 없습니다.");
+    } else if (courses == []) {
+      return EmptyScreen(title: "강좌 목록이 없습니다.");
+    } else {
+      return HomeLectureList(courses: courses);
+    }
   }
 }

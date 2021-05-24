@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lecture/presentation/widget/home_bottom_navbar.dart';
 import 'package:lecture/symbols/color_list.dart';
 
 import '../helper.dart';
