@@ -1,14 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture/data/model/course.dart';
+import 'package:lecture/presentation/lectures_total/lectures_total_screen.dart';
 import 'package:lecture/symbols/color_list.dart';
 import 'package:lecture/symbols/screen_list.dart';
 
 import '../../helper.dart';
 
 class HomeLectureList extends StatefulWidget {
-  const HomeLectureList({Key? key, required this.courses}) : super(key: key);
+  const HomeLectureList(
+      {Key? key,
+      required this.courses,
+      required this.isRecommended,
+      required this.isFree})
+      : super(key: key);
   final List<Course> courses;
+  final bool isRecommended;
+  final bool isFree;
 
   @override
   _HomeLectureListState createState() => _HomeLectureListState();
@@ -72,7 +80,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
   Widget _buildShowTotal() {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(ScreenList.lecturesTotal);
+        Navigator.of(context).pushNamed(ScreenList.lecturesTotal,
+            arguments: LectureTotalScreenArgument(
+                isFree: widget.isFree, isRecommended: widget.isRecommended));
       },
       child: Container(
         padding: const EdgeInsets.only(right: 16.0),

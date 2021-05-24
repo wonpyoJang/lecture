@@ -27,7 +27,14 @@ class MyApp extends StatelessWidget {
             });
           } else if (settings.name == ScreenList.lecturesTotal) {
             return MaterialPageRoute(builder: (context) {
-              return LectureTotalScreen();
+              var argument = settings.arguments;
+              if (argument is LectureTotalScreenArgument) {
+                return LectureTotalScreen(
+                  isFree: argument.isFree,
+                  isRecommended: argument.isRecommended,
+                );
+              }
+              throw ("Type of argument must be LectureTotalScreenArgument");
             });
           }
         },

@@ -91,7 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is HomeFailure) {
           return EmptyScreen(title: "서버 연결에 실패했습니다.");
         } else if (state is HomeSuccess) {
-          return _buildSuccessLectureList(state.recommendedCourses);
+          return _buildSuccessLectureList(state.recommendedCourses,
+              isFree: false, isRecommended: true);
         } else {
           return const Center(child: CircularProgressIndicator());
         }
@@ -105,7 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is HomeFailure) {
           return EmptyScreen(title: "서버 연결에 실패했습니다.");
         } else if (state is HomeSuccess) {
-          return _buildSuccessLectureList(state.freeCourses);
+          return _buildSuccessLectureList(state.freeCourses,
+              isFree: true, isRecommended: false);
         } else {
           return const Center(child: CircularProgressIndicator());
         }
@@ -113,15 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildSuccessLectureList(
-    List<Course>? courses,
-  ) {
+  Widget _buildSuccessLectureList(List<Course>? courses,
+      {required bool isFree, required bool isRecommended}) {
     if (courses == null) {
       return EmptyScreen(title: "강좌 목록이 없습니다.");
     } else if (courses == []) {
       return EmptyScreen(title: "강좌 목록이 없습니다.");
     } else {
-      return HomeLectureList(courses: courses);
+      return HomeLectureList(
+          courses: courses, isFree: isFree, isRecommended: isRecommended);
     }
   }
 }
