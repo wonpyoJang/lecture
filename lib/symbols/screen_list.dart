@@ -1,4 +1,6 @@
 class ScreenList {
-  static String home = "/home";
-  static String lecturesTotal = "/home/lectures_total";
+  static const String home = "/home";
+  static const String lecturesTotal = "/home/lectures_total";
+  static const String qr = "/home/qr";
+  static const String webView = "/webView";
 }

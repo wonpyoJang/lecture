@@ -10,4 +10,7 @@ class ColorList {
   static Color blackBlue = Color(0xff202044);
   static Color grey = Color(0xff799a7b);
   static Color lightGrey = Color(0xff7e7e7e);
+  static Color yellow = Color(0xffffff00);
+  static Color selectedPurple = Color(0xff524aa1);
+  static Color unselectedGrey = Color(0xff8d8a8a);
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lecture/presentation/home/home_screen.dart';
 import 'package:lecture/presentation/lectures_total/lectures_total_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lecture/presentation/web_view/web_veiw.dart';
 
 import 'presentation/home/home_bloc/home_bloc.dart';
+import 'presentation/qr/qr_screen.dart';
 import 'symbols/screen_list.dart';
 
 void main() {
@@ -35,6 +37,14 @@ class MyApp extends StatelessWidget {
                 );
               }
               throw ("Type of argument must be LectureTotalScreenArgument");
+            });
+          } else if (settings.name == ScreenList.qr) {
+            return MaterialPageRoute(builder: (context) {
+              return QRScreen();
+            });
+          } else if (settings.name == ScreenList.webView) {
+            return MaterialPageRoute(builder: (context) {
+              return WebViewScreen(url: settings.arguments as String);
             });
           }
         },

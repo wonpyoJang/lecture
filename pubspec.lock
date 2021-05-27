@@ -399,10 +399,17 @@ packages:
   qr_code_scanner:
     dependency: "direct main"
     description:
-      name: qr_code_scanner
+      path: "qr_code_scanner-0.4.0"
+      relative: true
+    source: path
+    version: "0.4.0"
+  rxdart:
+    dependency: "direct main"
+    description:
+      name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "0.27.0"
   shelf:
     dependency: transitive
     description:
@@ -513,6 +520,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  webview_flutter:
+    dependency: "direct main"
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.7"
   xml:
     dependency: transitive
     description:

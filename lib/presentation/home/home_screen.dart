@@ -6,6 +6,7 @@ import 'package:lecture/data/model/course.dart';
 import 'package:lecture/presentation/widget/empty_screen.dart';
 import 'package:lecture/presentation/widget/home_bottom_navbar.dart';
 import 'package:lecture/symbols/color_list.dart';
+import 'package:lecture/symbols/screen_list.dart';
 import 'home_bloc/home_bloc.dart';
 import 'widget/home_lecture_list.dart';
 
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: ColorList.homeBackground,
       appBar: _buildAppBar(),
-      bottomNavigationBar: HomeBottomNavBar(),
+      bottomNavigationBar: HomeBottomNavBar(currentScreen: ScreenList.home,),
       body: _buildBody(context),
     );
   }
