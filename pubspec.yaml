@@ -33,6 +33,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   webview_flutter: ^2.0.7
   rxdart:
+  permission_handler: ^8.0.0+2
 
 
 

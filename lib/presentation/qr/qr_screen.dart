@@ -7,6 +7,7 @@ import 'package:lecture/symbols/screen_list.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:convert';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../helper.dart';
 
@@ -22,6 +23,28 @@ class _QRScreenState extends State<QRScreen> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool isDialogOn = false;
+  bool isCameraPermissionAllowed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkPermission();
+  }
+
+  void checkPermission() async {
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      final snackBar = SnackBar(content: Text('유효한 url이 아닙니다.'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+    if (await Permission.location.isRestricted) {
+      final snackBar = SnackBar(content: Text('유효한 url이 아닙니다.'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+    isCameraPermissionAllowed = true;
+  }
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -67,7 +90,7 @@ class _QRScreenState extends State<QRScreen> {
         try {
           decoded = utf8.decode(base64Url.decode(scanData.code));
         } catch(error) {
-          final snackBar = SnackBar(content: Text('유효한 url이 아닙니다.\n$error'));
+          final snackBar = SnackBar(content: Text('유효한 url이 아닙니다.\n $error'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           return;
         }
@@ -76,7 +99,7 @@ class _QRScreenState extends State<QRScreen> {
       var isAcceptedByUser = await Helper.showYesOrNoDialog(
         context,
         title: "Url로 이동",
-        description: "다음 Url로 이동하시겠습니까?\n\n${decoded}",
+        description: "다음 Url로 이동하시겠습니까?\n\n $decoded",
       );
 
       if (isAcceptedByUser) {
