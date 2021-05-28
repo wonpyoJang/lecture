@@ -48,7 +48,10 @@ class _HomeLectureListState extends State<HomeLectureList> {
                   return SizedBox(width: 13.0);
                 },
                 itemBuilder: (context, index) {
-                  return _buildLectureCardItem(item: widget.courses[index]);
+                  return _buildLectureCardItem(item: widget.courses[index], onTap: () {
+                    final snackBar = SnackBar(content: Text('${widget.courses[index].title}를 클릭하셨습니다.'), duration: Duration(seconds: 1),);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
                 }),
           )
         ],
@@ -105,24 +108,29 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildLectureCardItem({required Course item}) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _buildCardUpperPart(item: item),
-          _buildCardLowerPart(item: item),
-        ],
-      ),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 10,
-          spreadRadius: 1,
-          offset: Offset(-2, -3), // changes position of shadow
+  Widget _buildLectureCardItem({required Course item, required Function onTap}) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _buildCardUpperPart(item: item),
+            _buildCardLowerPart(item: item),
+          ],
         ),
-      ]),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: Offset(-2, -3), // changes position of shadow
+          ),
+        ]),
+      ),
     );
   }
 
