@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class QrScannerOverlayShape extends ShapeBorder {
@@ -175,12 +174,7 @@ class QrScannerOverlayShape extends ShapeBorder {
         boxPaint,
       );
 
-      print("_borderLength: $borderLength");
-      print("textPainter.width: ${textPainter.width}");
-      print("cutoutRect: ${cutOutRect.bottom}");
-
       textPainter.paint(canvas, Offset(cutOutRect.left, cutOutRect.bottom + 28.0));
-
       canvas.restore();
   }
 
