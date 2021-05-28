@@ -46,7 +46,7 @@ class HomeBottomNavBar extends StatelessWidget {
         ),
         title: "QR",
         onTap: () {
-          Navigator.of(context).pushNamed(ScreenList.qr);
+          Navigator.of(context).pushReplacementNamed(ScreenList.qr);
         },
         isSelected: currentScreen == ScreenList.qr);
   }
