@@ -39,8 +39,7 @@ class HomeBottomNavBar extends StatelessWidget {
 
   Widget _buildQRButton(BuildContext context) {
     return _buildBottomNavButton(
-        icon: SvgPicture.asset(
-            "assets/home/bottom_navbar/camera_alt_24px.svg"),
+        icon: SvgPicture.asset("assets/home/bottom_navbar/camera_alt_24px.svg"),
         iconSelected: SvgPicture.asset(
           "assets/home/bottom_navbar/camera_alt_selected_24px.svg",
         ),

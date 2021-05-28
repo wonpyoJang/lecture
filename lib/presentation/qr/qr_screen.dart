@@ -80,8 +80,8 @@ class _QRScreenState extends State<QRScreen> {
       if (isDialogOn == true) {
         return;
       }
-      isDialogOn = true;
 
+      isDialogOn = true;
       String decoded = "";
 
       if (scanData.code.startsWith("http")) {
@@ -89,7 +89,7 @@ class _QRScreenState extends State<QRScreen> {
       } else {
         try {
           decoded = utf8.decode(base64Url.decode(scanData.code));
-        } catch(error) {
+        } catch (error) {
           final snackBar = SnackBar(content: Text('유효한 url이 아닙니다.\n $error'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           return;
@@ -107,7 +107,6 @@ class _QRScreenState extends State<QRScreen> {
             .pushNamed(ScreenList.webView, arguments: decoded);
       }
       isDialogOn = false;
-
     });
   }
 
@@ -126,36 +125,39 @@ class _QRScreenState extends State<QRScreen> {
           Expanded(flex: 4, child: _buildQrView(context)),
         ],
       ),
-      bottomNavigationBar: HomeBottomNavBar(currentScreen: ScreenList.qr,),
+      bottomNavigationBar: HomeBottomNavBar(
+        currentScreen: ScreenList.qr,
+      ),
     );
   }
 
   PreferredSize _buildAppBar() {
     return PreferredSize(
-        child: Container(
-          color: Colors.white,
-          height: 80,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 7.1),
-              height: 32.9,
-              child: Center(
-                child: Text("QR",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      height: Helper.getTextHeightRatio(height: 14, fontSize: 16),
-                      letterSpacing: 0,
-                      color: ColorList.black,
-                    )),
-              ),
+      child: Container(
+        color: Colors.white,
+        height: 80,
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 7.1),
+            height: 32.9,
+            child: Center(
+              child: Text("QR",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    height: Helper.getTextHeightRatio(height: 14, fontSize: 16),
+                    letterSpacing: 0,
+                    color: ColorList.black,
+                  )),
             ),
           ),
         ),
-        preferredSize: Size.fromHeight(60),);
+      ),
+      preferredSize: Size.fromHeight(60),
+    );
   }
 }

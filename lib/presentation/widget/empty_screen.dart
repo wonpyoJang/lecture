@@ -11,18 +11,19 @@ class EmptyScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         child: Center(
-          child: Text(title,
+          child: Text(
+            title,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "Roboto",
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               fontSize: 15,
-              height: Helper.getTextHeightRatio(
-                  height: 20, fontSize: 15),
+              height: Helper.getTextHeightRatio(height: 20, fontSize: 15),
               letterSpacing: 0,
               color: Colors.black,
-            ),),
+            ),
+          ),
         ),
       ),
     );

@@ -4,7 +4,6 @@ part 'course.g.dart';
 
 @JsonSerializable()
 class Course {
-
   @JsonKey(name: "title")
   final String? title;
 

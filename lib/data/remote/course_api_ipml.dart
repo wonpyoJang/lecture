@@ -5,7 +5,10 @@ import 'dart:convert';
 
 class CourseApiImpl implements CourseApi {
   @override
-  Future<CourseResponse> getCourses(int offset, {int count = 10, bool filterIsFree = false, bool filterIsRecommended = false}) async {
+  Future<CourseResponse> getCourses(int offset,
+      {int count = 10,
+      bool filterIsFree = false,
+      bool filterIsRecommended = false}) async {
     try {
       var queryParameters = {
         'filter_is_free': filterIsFree.toString(),
@@ -14,8 +17,8 @@ class CourseApiImpl implements CourseApi {
         'count': 10.toString(),
       };
 
-      Uri uri = Uri.https('api-rest.elice.io',
-          "/org/academy/course/list/", queryParameters);
+      Uri uri = Uri.https(
+          'api-rest.elice.io', "/org/academy/course/list/", queryParameters);
 
       final response = await http.get(uri);
       if (response.statusCode == 200) {

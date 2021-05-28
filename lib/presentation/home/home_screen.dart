@@ -23,7 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: ColorList.homeBackground,
       appBar: _buildAppBar(),
-      bottomNavigationBar: HomeBottomNavBar(currentScreen: ScreenList.home,),
+      bottomNavigationBar: HomeBottomNavBar(
+        currentScreen: ScreenList.home,
+      ),
       body: _buildBody(context),
     );
   }

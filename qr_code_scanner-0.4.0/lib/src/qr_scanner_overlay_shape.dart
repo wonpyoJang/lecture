@@ -100,7 +100,7 @@ class QrScannerOverlayShape extends ShapeBorder {
           fontStyle: FontStyle.normal,
           fontWeight: FontWeight.w400,
           fontSize: 16,
-          height: 14/16,
+          height: 14 / 16,
           letterSpacing: 0,
           color: Color(0xffffff00),
         ),
@@ -174,8 +174,9 @@ class QrScannerOverlayShape extends ShapeBorder {
         boxPaint,
       );
 
-      textPainter.paint(canvas, Offset(cutOutRect.left, cutOutRect.bottom + 28.0));
-      canvas.restore();
+    textPainter.paint(
+        canvas, Offset(cutOutRect.left, cutOutRect.bottom + 28.0));
+    canvas.restore();
   }
 
   @override

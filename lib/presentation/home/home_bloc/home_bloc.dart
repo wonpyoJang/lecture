@@ -43,7 +43,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final freeCourses = await getFreeCoursesUseCase.perform();
         final recommendedCourses = await getRecommendedCoursesUseCase.perform();
 
-        return HomeSuccess(freeCourses: freeCourses.courses,
+        return HomeSuccess(
+            freeCourses: freeCourses.courses,
             recommendedCourses: recommendedCourses.courses,
             hasReachedMax: false);
       }

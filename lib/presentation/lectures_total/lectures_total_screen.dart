@@ -163,20 +163,20 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
   }
 
   Widget _buildTitle({required String? title}) {
-      return Text(
-        title ?? "제목 없음",
-        textAlign: TextAlign.left,
-        maxLines: 2,
-        style: TextStyle(
-          fontFamily: "Roboto",
-          fontStyle: FontStyle.normal,
-          fontWeight: FontWeight.w700,
-          fontSize: 16.0,
-          height: Helper.getTextHeightRatio(height: 20, fontSize: 16),
-          letterSpacing: 0,
-          color: ColorList.black,
-        ),
-      );
+    return Text(
+      title ?? "제목 없음",
+      textAlign: TextAlign.left,
+      maxLines: 2,
+      style: TextStyle(
+        fontFamily: "Roboto",
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w700,
+        fontSize: 16.0,
+        height: Helper.getTextHeightRatio(height: 20, fontSize: 16),
+        letterSpacing: 0,
+        color: ColorList.black,
+      ),
+    );
   }
 
   Widget _buildLectureImage({required String? image}) {

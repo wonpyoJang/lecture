@@ -6,9 +6,8 @@ class Helper {
     return height / fontSize;
   }
 
-  static Future<bool> showYesOrNoDialog(BuildContext context, {required String title,
-      required String description}) async{
-
+  static Future<bool> showYesOrNoDialog(BuildContext context,
+      {required String title, required String description}) async {
     bool isYes = false;
 
     Widget cancelButton = TextButton(

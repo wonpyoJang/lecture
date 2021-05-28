@@ -1,3 +1,3 @@
-abstract class BaseUseCase<T>{
+abstract class BaseUseCase<T> {
   Future<T> perform();
 }
