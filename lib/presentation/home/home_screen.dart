@@ -30,15 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBody(BuildContext context) {
     return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(height: 22.0),
-          _buildRecommendedLecture(),
-          SizedBox(height: 24.0),
-          _buildFreeLecture(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 22.0),
+            _buildRecommendedLecture(),
+            SizedBox(height: 24.0),
+            _buildFreeLecture(),
+          ],
+        ),
       ),
     );
   }
