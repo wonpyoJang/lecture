@@ -14,7 +14,7 @@ void main() {
       print(test.logoFileUrl);
 
       var ground = Course("실제데이터를활용한파이썬데이터분석",
-          "https://elice-api-cdn.azureedge.net/api/file/1bacbf3effd94e3aa97fd779577e773b/data-analysis.png?se=2021-06-03T00%3A15%3A00Z&sp=rt&sv=2020-06-12&sr=b&sig=kRF/rs2cp%2BVElyz/SrPBP/AU9eA27mWqWivsIpyhDJk%3D");
+          "https://elice-api-cdn.azureedge.net/api/file/1bacbf3effd94e3aa97fd779577e773b/data-analysis.png?se=2021-06-03T00%3A15%3A00Z&sp=rt&sv=2020-06-12&sr=b&sig=kRF/rs2cp%2BVElyz/SrPBP/AU9eA27mWqWivsIpyhDJk%3D", null);
 
       expect(test, ground);
     });

@@ -14,6 +14,10 @@ class Course {
   @JsonKey(name: "instructors")
   final List<Instructor>? instructors;
 
+  int numberOfInstructor() {
+    return instructors != null ? instructors!.length : 0;
+  }
+
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 
   Course(this.title, this.logoFileUrl, this.instructors);

@@ -1,6 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lecture/data/model/api_result.dart';
-import 'package:lecture/data/model/course.dart';
 
 part 'instructor.g.dart';
 

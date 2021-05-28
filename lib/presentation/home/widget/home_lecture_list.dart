@@ -150,7 +150,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
         children: [
           SizedBox(height: 10),
           // todo: 선생님 이름이 API에 존재하는지 확인.
-          _buildTeacherName(teacherName: null),
+          _buildTeacherName(teacherName:  item.numberOfInstructor()  > 0 ? item.instructors![0].fullname : "선생님 미등록"),
           SizedBox(height: 7.0),
           _buildOfflineButton()
         ],

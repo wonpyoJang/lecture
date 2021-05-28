@@ -96,7 +96,7 @@ class QrScannerOverlayShape extends ShapeBorder {
       text: TextSpan(
         text: 'QR 코드를 인식해주세요',
         style: TextStyle(
-          fontFamily: "Roboto",
+          fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
           fontWeight: FontWeight.w400,
           fontSize: 16,
