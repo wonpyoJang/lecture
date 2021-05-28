@@ -22,6 +22,7 @@ class Helper {
       child: Text("Ok"),
       onPressed: () {
         isYes = true;
+        Navigator.of(context).pop();
       },
     );
 

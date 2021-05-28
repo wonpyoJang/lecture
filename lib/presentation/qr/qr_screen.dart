@@ -156,6 +156,6 @@ class _QRScreenState extends State<QRScreen> {
             ),
           ),
         ),
-        preferredSize: Size.fromHeight(60));
+        preferredSize: Size.fromHeight(60),);
   }
 }
