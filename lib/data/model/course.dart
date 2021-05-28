@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lecture/data/model/instructor.dart';
 
 part 'course.g.dart';
 
@@ -10,9 +11,12 @@ class Course {
   @JsonKey(name: "logo_file_url")
   final String? logoFileUrl;
 
+  @JsonKey(name: "instructors")
+  final List<Instructor>? instructors;
+
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 
-  Course(this.title, this.logoFileUrl);
+  Course(this.title, this.logoFileUrl, this.instructors);
 
   Map<String, dynamic> toJson() => _$CourseToJson(this);
 
