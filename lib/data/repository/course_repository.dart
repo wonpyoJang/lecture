@@ -4,5 +4,5 @@ abstract class CourseRepository {
   Future<CourseResponse> getCourses(int offset,
       {int count = 10,
       bool filterIsFree = false,
-      bool filterIsRecommended = false});
+      bool filterIsRecommended = false,});
 }

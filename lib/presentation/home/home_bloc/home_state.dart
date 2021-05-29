@@ -59,3 +59,15 @@ class HomeFailure extends HomeState {
             recommendedCourses: recommendedCourses,
             hasReachedMax: hasReachedMax);
 }
+
+class LoadCompleted extends HomeState {
+  LoadCompleted(
+      {List<Course>? freeCourses,
+        List<Course>? recommendedCourses,
+        bool? hasReachedMax})
+      : super(
+      freeCourses: freeCourses,
+      recommendedCourses: recommendedCourses,
+      hasReachedMax: hasReachedMax);
+}
+

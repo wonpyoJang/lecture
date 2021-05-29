@@ -4,6 +4,7 @@ import 'package:lecture/data/model/course.dart';
 import 'package:lecture/presentation/home/home_bloc/home_bloc.dart';
 import 'package:lecture/presentation/widget/empty_screen.dart';
 import 'package:lecture/symbols/color_list.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../helper.dart';
 
@@ -32,6 +33,42 @@ class LectureTotalScreen extends StatefulWidget {
 }
 
 class _LectureTotalScreenState extends State<LectureTotalScreen> {
+
+  ScrollController? controller;
+  bool isLoadCompleted = false;
+  PublishSubject<bool> scrollEvents = PublishSubject<bool>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new ScrollController()..addListener(_scrollListener);
+    scrollEvents.stream.throttle((_) => TimerStream(true, Duration(seconds: 2))).listen((event) {
+      if(isLoadCompleted) {
+        return;
+      }
+
+      if (controller!.position.extentAfter > 500) {
+        if(widget.isFree) {
+          BlocProvider.of<HomeBloc>(context)
+            ..add(LoadMoreFreeCoursesEvent());
+        } else if(widget.isRecommended){
+          BlocProvider.of<HomeBloc>(context)
+            ..add(LoadMoreRecommendedCoursesEvent());
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller!.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    scrollEvents.add(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,19 +116,29 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
       onRefresh: () async {
         BlocProvider.of<HomeBloc>(context)..add(FetchAllCoursesEvent());
       },
-      child: BlocListener<HomeBloc, HomeState>(
-        listenWhen: (previousState, state) {
-          return previousState is HomeSuccess && state is HomeSuccess;
-        },
-        listener: (context, state) {
-          final snackBar = SnackBar(content: Text('새로고침 되었습니다.'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<HomeBloc, HomeState>(
+            listenWhen: (previousState, state) {
+            return (previousState is HomeSuccess) && (state is HomeSuccess);
+          },
+          listener: (context, state) {
+            final snackBar = SnackBar(content: Text('새로고침 되었습니다.'), duration: Duration(microseconds: 300),);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },),
+          BlocListener<HomeBloc, HomeState>(
+            listenWhen: (previousState, state) {
+              return state is LoadCompleted;
+            },
+            listener: (context, state) {
+              isLoadCompleted = true;
+            },),
+        ],
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeFailure) {
               return EmptyScreen(title: "서버 연결에 실패했습니다.");
-            } else if (state is HomeSuccess) {
+            } else if ((state is HomeSuccess) || (state is LoadCompleted)) {
               if (widget.isFree) {
                 return _buildSuccessLectureList(state.freeCourses);
               } else if (widget.isRecommended) {
@@ -278,6 +325,7 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: ListView.separated(
+        controller: controller,
         itemCount: courses.length,
         separatorBuilder: (context, index) {
           return Container(

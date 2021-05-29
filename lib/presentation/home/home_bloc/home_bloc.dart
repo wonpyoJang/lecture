@@ -26,11 +26,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async* {
     // TODO: implement mapEventToState
     if (event is FetchAllCoursesEvent) {
-      yield await _mapCoursesFetchedToState(state);
+      yield await _mapFetchAllCoursesToState(state);
+    } else if(event is LoadMoreFreeCoursesEvent) {
+      yield await _mapLoadMoreFreeCourseToState(state);
+    } else if (event is LoadMoreRecommendedCoursesEvent) {
+      yield await _mapLoadMoreRecommendedCourseToState(state);
     }
   }
 
-  Future<HomeState> _mapCoursesFetchedToState(HomeState state) async {
+  Future<HomeState> _mapFetchAllCoursesToState(HomeState state) async {
     try {
       getFreeCoursesUseCase = GetFreeCoursesUseCase(
           CourseRepositoryImpl(CourseApiImpl()),
@@ -46,7 +50,65 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           freeCourses: freeCourses.courses,
           recommendedCourses: recommendedCourses.courses,
           hasReachedMax: false);
-      // return HomeFailure()..copyFrom(state);
+    } on Exception {
+      var newState = HomeFailure()..copyFrom(state);
+      return newState;
+    }
+  }
+
+  Future<HomeState> _mapLoadMoreFreeCourseToState(HomeState state) async{
+    try {
+      getFreeCoursesUseCase = GetFreeCoursesUseCase(
+          CourseRepositoryImpl(CourseApiImpl()),
+          offset: state.freeCourses?.length ?? 0);
+
+      var result = await getFreeCoursesUseCase.perform();
+
+      List<Course> previousFreeCourses = state.freeCourses ?? [];
+      List<Course> newCorses = result.courses ?? [];
+      List<Course> totalFreeCourses = [...previousFreeCourses, ...newCorses];
+
+
+      if(totalFreeCourses.length >= result.courseCount!) {
+        return LoadCompleted(
+            freeCourses: totalFreeCourses,
+            recommendedCourses: state.recommendedCourses,
+            hasReachedMax: false);
+      } else {
+        return HomeSuccess(
+            freeCourses: totalFreeCourses,
+            recommendedCourses: state.recommendedCourses,
+            hasReachedMax: false);
+      }
+    } on Exception {
+      var newState = HomeFailure()..copyFrom(state);
+      return newState;
+    }
+  }
+
+  Future<HomeState> _mapLoadMoreRecommendedCourseToState(HomeState state) async{
+    try {
+      getRecommendedCoursesUseCase = GetRecommendedCoursesUseCase(
+          CourseRepositoryImpl(CourseApiImpl()),
+          offset: state.recommendedCourses?.length ?? 0);
+
+      var result = await getRecommendedCoursesUseCase.perform();
+
+      List<Course> previousRecommendedCourses = state.recommendedCourses ?? [];
+      List<Course> newCourses = result.courses ?? [];
+      List<Course> totalRecommendedCourses = [...previousRecommendedCourses, ...newCourses];
+
+      if(totalRecommendedCourses.length >= result.courseCount!) {
+        return LoadCompleted(
+            freeCourses: state.freeCourses,
+            recommendedCourses: totalRecommendedCourses,
+            hasReachedMax: false);
+      } else {
+        return HomeSuccess(
+            freeCourses: state.freeCourses,
+            recommendedCourses: totalRecommendedCourses,
+            hasReachedMax: false);
+      }
     } on Exception {
       var newState = HomeFailure()..copyFrom(state);
       return newState;

@@ -13,12 +13,14 @@ class CourseApiImpl implements CourseApi {
       var queryParameters = {
         'filter_is_free': filterIsFree.toString(),
         'filter_is_recommended': filterIsRecommended.toString(),
-        'offset': 0.toString(),
-        'count': 10.toString(),
+        'offset': offset.toString(),
+        'count': count.toString(),
       };
 
       Uri uri = Uri.https(
           'api-rest.elice.io', "/org/academy/course/list/", queryParameters);
+
+      print("[API call]" + uri.toString());
 
       final response = await http.get(uri);
       if (response.statusCode == 200) {

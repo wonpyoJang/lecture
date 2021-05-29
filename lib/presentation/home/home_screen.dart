@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         if (state is HomeFailure) {
           return EmptyScreen(title: "서버 연결에 실패했습니다.");
-        } else if (state is HomeSuccess) {
+        } else if ((state is HomeSuccess) || (state is LoadCompleted)) {
           return _buildSuccessLectureList(state.recommendedCourses,
               isFree: false, isRecommended: true, title: "추천 과목");
         } else {
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         if (state is HomeFailure) {
           return EmptyScreen(title: "서버 연결에 실패했습니다.");
-        } else if (state is HomeSuccess) {
+        } else if ((state is HomeSuccess) || (state is LoadCompleted)) {
           return _buildSuccessLectureList(state.freeCourses,
               isFree: true, isRecommended: false, title: "무료 과목");
         } else {
