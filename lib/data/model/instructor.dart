@@ -22,7 +22,8 @@ class Instructor {
   factory Instructor.fromJson(Map<String, dynamic> json) =>
       _$InstructorFromJson(json);
 
-  Instructor(this.id, this.fullname, this.firstname, this.lastname, this.profileUrl);
+  Instructor(
+      this.id, this.fullname, this.firstname, this.lastname, this.profileUrl);
 
   Map<String, dynamic> toJson() => _$InstructorToJson(this);
 }

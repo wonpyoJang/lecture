@@ -121,14 +121,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSuccessLectureList(List<Course>? courses,
-      {required bool isFree, required bool isRecommended, required String title}) {
+      {required bool isFree,
+      required bool isRecommended,
+      required String title}) {
     if (courses == null) {
       return EmptyScreen(title: "강좌 목록이 없습니다.");
     } else if (courses == []) {
       return EmptyScreen(title: "강좌 목록이 없습니다.");
     } else {
       return HomeLectureList(
-          courses: courses, isFree: isFree, isRecommended: isRecommended, title: title);
+          courses: courses,
+          isFree: isFree,
+          isRecommended: isRecommended,
+          title: title);
     }
   }
 }

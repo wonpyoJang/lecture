@@ -25,7 +25,6 @@ class HomeLectureList extends StatefulWidget {
 }
 
 class _HomeLectureListState extends State<HomeLectureList> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,10 +50,16 @@ class _HomeLectureListState extends State<HomeLectureList> {
                   return SizedBox(width: 13.0);
                 },
                 itemBuilder: (context, index) {
-                  return _buildLectureCardItem(item: widget.courses[index], onTap: () {
-                    final snackBar = SnackBar(content: Text('${widget.courses[index].title}를 클릭하셨습니다.'), duration: Duration(seconds: 1),);
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  });
+                  return _buildLectureCardItem(
+                      item: widget.courses[index],
+                      onTap: () {
+                        final snackBar = SnackBar(
+                          content:
+                              Text('${widget.courses[index].title}를 클릭하셨습니다.'),
+                          duration: Duration(seconds: 1),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      });
                 }),
           )
         ],
@@ -111,7 +116,8 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildLectureCardItem({required Course item, required Function onTap}) {
+  Widget _buildLectureCardItem(
+      {required Course item, required Function onTap}) {
     return GestureDetector(
       onTap: () {
         onTap();
@@ -153,7 +159,10 @@ class _HomeLectureListState extends State<HomeLectureList> {
         children: [
           SizedBox(height: 10),
           // todo: 선생님 이름이 API에 존재하는지 확인.
-          _buildTeacherName(teacherName:  item.numberOfInstructor()  > 0 ? item.instructors![0].fullname : "선생님 미등록"),
+          _buildTeacherName(
+              teacherName: item.numberOfInstructor() > 0
+                  ? item.instructors![0].fullname
+                  : "선생님 미등록"),
           SizedBox(height: 7.0),
           _buildOfflineButton()
         ],
@@ -250,6 +259,24 @@ class _HomeLectureListState extends State<HomeLectureList> {
   Widget _buildLectureImage({required String? image}) {
     return image != null
         ? Image.network(image, width: 44, height: 44, fit: BoxFit.cover)
-        : Container(width: 44, height: 44, color: Colors.grey);
+        : Container(
+            width: 44,
+            height: 44,
+            color: ColorList.imageBackground,
+            child: Center(
+              child: Text(
+                "이미지\n 미등록",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 10,
+                  height: Helper.getTextHeightRatio(height: 20, fontSize: 12),
+                  letterSpacing: 0,
+                  color: ColorList.black,
+                ),
+              ),
+            ));
   }
 }

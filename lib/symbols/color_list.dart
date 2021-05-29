@@ -13,4 +13,5 @@ class ColorList {
   static Color yellow = Color(0xffffff00);
   static Color selectedPurple = Color(0xff524aa1);
   static Color unselectedGrey = Color(0xff8d8a8a);
+  static Color imageBackground = Color(0xfff0f0f0);
 }
