@@ -45,7 +45,7 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
     super.initState();
     controller = new ScrollController()..addListener(_scrollListener);
     scrollEventsSubscription = scrollEvents.stream
-        .throttle((_) => TimerStream(true, Duration(seconds: 1)))
+        .throttle((_) => TimerStream(true, Duration(milliseconds: 500)))
         .listen((event) {
       if (isLoadCompleted) {
         return;
