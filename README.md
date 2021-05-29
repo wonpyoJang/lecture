@@ -8,12 +8,15 @@ A new Flutter project.
 ├── └── model - json 응답 모델
 ├── └── remote - api서버의 데이터에 접근하는 역
 ├── └── repository - 적절한 data source를 선택하는 역할.
+├
 ├── domain : useCase를 모아놓은 디렉토리.
+├
 ├── presentation
 ├── └── home - 홈 화면의 위젯과 Bloc
 ├── └── lectures_total - 과목 전체보기 화면의 위, Bloc은 홈 화면의 Bloc을 공유합니다.
 ├── └── qr - qr 코드 스캐너 화면
 ├── └── web_view - 웹뷰 화면
+├
 └── symbols : 재사용 가능한 문자열의 집합입니다.
 ```
 
