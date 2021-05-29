@@ -10,17 +10,22 @@ import '../helper.dart';
 class LectureTotalScreenArgument {
   final bool isRecommended;
   final bool isFree;
+  final String title;
 
   LectureTotalScreenArgument(
-      {required this.isRecommended, required this.isFree});
+      {required this.isRecommended, required this.isFree, required this.title});
 }
 
 class LectureTotalScreen extends StatefulWidget {
   const LectureTotalScreen(
-      {Key? key, required this.isRecommended, required this.isFree})
+      {Key? key,
+      required this.isRecommended,
+      required this.isFree,
+      required this.title})
       : super(key: key);
   final bool isRecommended;
   final bool isFree;
+  final String title;
 
   @override
   _LectureTotalScreenState createState() => _LectureTotalScreenState();
@@ -98,7 +103,7 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
         height: 32.9,
         child: Center(
           child: Text(
-            "무료 과목",
+            widget.title,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "Roboto",

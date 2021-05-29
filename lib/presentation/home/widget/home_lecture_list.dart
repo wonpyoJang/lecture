@@ -93,7 +93,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
       onTap: () {
         Navigator.of(context).pushNamed(ScreenList.lecturesTotal,
             arguments: LectureTotalScreenArgument(
-                isFree: widget.isFree, isRecommended: widget.isRecommended));
+                isFree: widget.isFree,
+                isRecommended: widget.isRecommended,
+                title: widget.title));
       },
       child: Container(
         padding: const EdgeInsets.only(right: 16.0),

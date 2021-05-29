@@ -71,18 +71,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildNotifications() {
-    return Align(
-      alignment: Alignment.bottomRight,
-      child: Container(
-        margin: const EdgeInsets.only(right: 1.0, bottom: 4.0),
-        width: 44,
-        height: 44,
-        child: Center(
-          child: Container(
-            width: 18,
-            height: 20,
-            child: SvgPicture.asset(
-              "assets/home/appbar/notifications_24px.svg",
+    return GestureDetector(
+      onTap: () {
+        final snackBar = SnackBar(
+          content: Text('notification 클릭'),
+          duration: Duration(seconds: 1),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: Container(
+          margin: const EdgeInsets.only(right: 1.0, bottom: 4.0),
+          width: 44,
+          height: 44,
+          child: Center(
+            child: Container(
+              width: 18,
+              height: 20,
+              child: SvgPicture.asset(
+                "assets/home/appbar/notifications_24px.svg",
+              ),
             ),
           ),
         ),

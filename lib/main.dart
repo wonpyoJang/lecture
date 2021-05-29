@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
                 return LectureTotalScreen(
                   isFree: argument.isFree,
                   isRecommended: argument.isRecommended,
+                  title: argument.title,
                 );
               }
               throw ("Type of argument must be LectureTotalScreenArgument");
