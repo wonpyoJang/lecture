@@ -163,7 +163,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
           // todo: 선생님 이름이 API에 존재하는지 확인.
           _buildTeacherName(
               teacherName: item.numberOfInstructor() > 0
-                  ? item.instructors![0].fullname
+                  ? item.instructors![0].fullname!
                   : "선생님 미등록"),
           SizedBox(height: 7.0),
           _buildOfflineButton()
@@ -226,9 +226,9 @@ class _HomeLectureListState extends State<HomeLectureList> {
     );
   }
 
-  Widget _buildTeacherName({required String? teacherName}) {
+  Widget _buildTeacherName({required String teacherName}) {
     return Text(
-      teacherName ?? "미정",
+      teacherName,
       textAlign: TextAlign.center,
       style: TextStyle(
         fontFamily: "Roboto",

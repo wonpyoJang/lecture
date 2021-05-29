@@ -32,31 +32,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<HomeState> _mapCoursesFetchedToState(HomeState state) async {
     try {
-      if (state is HomeInitial) {
-        getFreeCoursesUseCase = GetFreeCoursesUseCase(
-            CourseRepositoryImpl(CourseApiImpl()),
-            offset: 0);
-        getRecommendedCoursesUseCase = GetRecommendedCoursesUseCase(
-            CourseRepositoryImpl(CourseApiImpl()),
-            offset: 0);
+      getFreeCoursesUseCase = GetFreeCoursesUseCase(
+          CourseRepositoryImpl(CourseApiImpl()),
+          offset: 0);
+      getRecommendedCoursesUseCase = GetRecommendedCoursesUseCase(
+          CourseRepositoryImpl(CourseApiImpl()),
+          offset: 0);
 
-        final freeCourses = await getFreeCoursesUseCase.perform();
-        final recommendedCourses = await getRecommendedCoursesUseCase.perform();
+      final freeCourses = await getFreeCoursesUseCase.perform();
+      final recommendedCourses = await getRecommendedCoursesUseCase.perform();
 
-        return HomeSuccess(
-            freeCourses: freeCourses.courses,
-            recommendedCourses: recommendedCourses.courses,
-            hasReachedMax: false);
-      }
-      return HomeFailure()..copyFrom(state);
-      // final posts = await _fetchPosts(state.posts.length);
-      // return posts.isEmpty
-      //     ? state.copyWith(hasReachedMax: true)
-      //     : state.copyWith(
-      //   status: PostStatus.success,
-      //   posts: List.of(state.posts)..addAll(posts),
-      //   hasReachedMax: false,
-      // );
+      return HomeSuccess(
+          freeCourses: freeCourses.courses,
+          recommendedCourses: recommendedCourses.courses,
+          hasReachedMax: false);
+      // return HomeFailure()..copyFrom(state);
     } on Exception {
       var newState = HomeFailure()..copyFrom(state);
       return newState;

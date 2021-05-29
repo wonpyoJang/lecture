@@ -75,22 +75,36 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
   }
 
   _buildBody(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        if (state is HomeFailure) {
-          return EmptyScreen(title: "서버 연결에 실패했습니다.");
-        } else if (state is HomeSuccess) {
-          if (widget.isFree) {
-            return _buildSuccessLectureList(state.freeCourses);
-          } else if (widget.isRecommended) {
-            return _buildSuccessLectureList(state.recommendedCourses);
-          } else {
-            throw ("isFree != null || isRecommendedCourses != null should be satisfied1");
-          }
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
+    return RefreshIndicator(
+      onRefresh: () async {
+        BlocProvider.of<HomeBloc>(context)..add(CoursesFetched());
       },
+      child: BlocListener<HomeBloc, HomeState>(
+        listenWhen: (previousState, state) {
+          return previousState is HomeSuccess && state is HomeSuccess;
+        },
+        listener: (context, state) {
+          final snackBar = SnackBar(content: Text('새로고침 되었습니다.'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        },
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is HomeFailure) {
+              return EmptyScreen(title: "서버 연결에 실패했습니다.");
+            } else if (state is HomeSuccess) {
+              if (widget.isFree) {
+                return _buildSuccessLectureList(state.freeCourses);
+              } else if (widget.isRecommended) {
+                return _buildSuccessLectureList(state.recommendedCourses);
+              } else {
+                throw ("isFree != null || isRecommendedCourses != null should be satisfied1");
+              }
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -142,7 +156,10 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildTitle(title: course.title),
-            _buildTeacherName(),
+            _buildTeacherName(
+                name: course.numberOfInstructor() > 0
+                    ? course.instructors![0].fullname!
+                    : "선생님 미등록"),
             SizedBox(height: 5.0),
             _buildOfflineButton(),
           ],
@@ -151,9 +168,9 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
     );
   }
 
-  Widget _buildTeacherName() {
+  Widget _buildTeacherName({required String name}) {
     return Text(
-      "유준배 선생님",
+      name,
       textAlign: TextAlign.center,
       style: TextStyle(
         fontFamily: "Roboto",
