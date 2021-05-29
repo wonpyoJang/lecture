@@ -244,6 +244,8 @@ class _HomeLectureListState extends State<HomeLectureList> {
     return Text(
       title ?? "제목 없음",
       textAlign: TextAlign.center,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontFamily: "Roboto",
         fontStyle: FontStyle.normal,
