@@ -269,7 +269,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
             color: ColorList.imageBackground,
             child: Center(
               child: Text(
-                "이미지\n 미등록",
+                "이미지\n미등록",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: "Roboto",
