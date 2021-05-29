@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       lazy: false,
-      create: (BuildContext context) => HomeBloc()..add(CoursesFetched()),
+      create: (BuildContext context) => HomeBloc()..add(FetchAllCoursesEvent()),
       child: MaterialApp(
         title: 'Lecture',
         initialRoute: ScreenList.home,

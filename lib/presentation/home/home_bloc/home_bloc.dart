@@ -25,7 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEvent event,
   ) async* {
     // TODO: implement mapEventToState
-    if (event is CoursesFetched) {
+    if (event is FetchAllCoursesEvent) {
       yield await _mapCoursesFetchedToState(state);
     }
   }

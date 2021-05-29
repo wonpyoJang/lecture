@@ -77,7 +77,7 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
   _buildBody(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        BlocProvider.of<HomeBloc>(context)..add(CoursesFetched());
+        BlocProvider.of<HomeBloc>(context)..add(FetchAllCoursesEvent());
       },
       child: BlocListener<HomeBloc, HomeState>(
         listenWhen: (previousState, state) {
