@@ -22,7 +22,7 @@ class _QRScreenState extends State<QRScreen> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  bool isDialogOn = false;
+  bool isYesOrNoDialogOn = false;
   bool isCameraPermissionAllowed = false;
 
   @override
@@ -77,11 +77,11 @@ class _QRScreenState extends State<QRScreen> {
     controller.scannedDataStream
         .throttle((_) => TimerStream(true, Duration(seconds: 2)))
         .listen((scanData) async {
-      if (isDialogOn == true) {
+      if (isYesOrNoDialogOn == true) {
         return;
       }
 
-      isDialogOn = true;
+      isYesOrNoDialogOn = true;
       String decoded = "";
 
       if (scanData.code.startsWith("http")) {
@@ -96,6 +96,9 @@ class _QRScreenState extends State<QRScreen> {
         }
       }
 
+      decoded = decoded.replaceAll("\r", "");
+      decoded = decoded.replaceAll("\n", "");
+
       var isAcceptedByUser = await Helper.showYesOrNoDialog(
         context,
         title: "Url로 이동",
@@ -106,7 +109,7 @@ class _QRScreenState extends State<QRScreen> {
         await Navigator.of(context)
             .pushNamed(ScreenList.webView, arguments: decoded);
       }
-      isDialogOn = false;
+      isYesOrNoDialogOn = false;
     });
   }
 
