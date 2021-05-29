@@ -42,13 +42,13 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
     super.initState();
     controller = new ScrollController()..addListener(_scrollListener);
     scrollEvents.stream
-        .throttle((_) => TimerStream(true, Duration(seconds: 2)))
+        .throttle((_) => TimerStream(true, Duration(seconds: 1)))
         .listen((event) {
       if (isLoadCompleted) {
         return;
       }
 
-      if (controller!.position.extentAfter > 500) {
+      if (controller!.position.extentAfter < 500) {
         if (widget.isFree) {
           BlocProvider.of<HomeBloc>(context)..add(LoadMoreFreeCoursesEvent());
         } else if (widget.isRecommended) {
@@ -136,6 +136,14 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
             },
             listener: (context, state) {
               isLoadCompleted = true;
+            },
+          ),
+          BlocListener<HomeBloc, HomeState>(
+            listenWhen: (previousState, state) {
+              return (previousState is LoadCompleted) && (state is HomeSuccess);
+            },
+            listener: (context, state) {
+              isLoadCompleted = false;
             },
           ),
         ],
@@ -331,16 +339,43 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
       padding: const EdgeInsets.all(16.0),
       child: ListView.separated(
         controller: controller,
-        itemCount: courses.length,
+        itemCount: courses.length+1,
         separatorBuilder: (context, index) {
           return Container(
             height: 14.0,
           );
         },
         itemBuilder: (context, index) {
+          if(index >= courses.length) {
+            return _buildFooter();
+          }
           return _buildLectureItem(course: courses[index]);
         },
       ),
+    );
+  }
+
+  Widget _buildFooter() {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if(state is LoadCompleted) {
+          return Container(
+            child: Center(
+              child: Text(
+                  "마지막입니다"
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            child: Center(
+              child: Text(
+                  "당겨서 더 보기 +"
+              ),
+            ),
+          );
+        }
+      }
     );
   }
 }
