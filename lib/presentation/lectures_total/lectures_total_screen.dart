@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lecture/data/model/course.dart';
@@ -36,12 +38,13 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
   ScrollController? controller;
   bool isLoadCompleted = false;
   PublishSubject<bool> scrollEvents = PublishSubject<bool>();
+  StreamSubscription<bool>? scrollEventsSubscription;
 
   @override
   void initState() {
     super.initState();
     controller = new ScrollController()..addListener(_scrollListener);
-    scrollEvents.stream
+    scrollEventsSubscription = scrollEvents.stream
         .throttle((_) => TimerStream(true, Duration(seconds: 1)))
         .listen((event) {
       if (isLoadCompleted) {
@@ -62,6 +65,7 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
   @override
   void dispose() {
     controller!.removeListener(_scrollListener);
+    scrollEventsSubscription?.cancel();
     super.dispose();
   }
 
