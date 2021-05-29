@@ -123,7 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
           return _buildSuccessLectureList(state.freeCourses,
               isFree: true, isRecommended: false, title: "무료 과목");
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Container(
+              height: 231,
+              child: const Center(child: CircularProgressIndicator()));
         }
       },
     );

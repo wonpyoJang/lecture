@@ -10,6 +10,7 @@ class EmptyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        height: 231,
         child: Center(
           child: Text(
             title,
