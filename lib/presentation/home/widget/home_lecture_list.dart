@@ -160,7 +160,6 @@ class _HomeLectureListState extends State<HomeLectureList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 10),
-          // todo: 선생님 이름이 API에 존재하는지 확인.
           _buildTeacherName(
               teacherName: item.numberOfInstructor() > 0
                   ? item.instructors![0].fullname!
