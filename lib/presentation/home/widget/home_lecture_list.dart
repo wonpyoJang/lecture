@@ -45,7 +45,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
                 padding: const EdgeInsets.only(left: 16.0, top: 11.0),
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                itemCount: widget.courses.length,
+                itemCount: widget.courses.length >= 10 ? 10 : widget.courses.length,
                 separatorBuilder: (context, index) {
                   return SizedBox(width: 13.0);
                 },
