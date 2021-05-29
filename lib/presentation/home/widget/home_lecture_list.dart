@@ -12,17 +12,20 @@ class HomeLectureList extends StatefulWidget {
       {Key? key,
       required this.courses,
       required this.isRecommended,
-      required this.isFree})
+      required this.isFree,
+      required this.title})
       : super(key: key);
   final List<Course> courses;
   final bool isRecommended;
   final bool isFree;
+  final String title;
 
   @override
   _HomeLectureListState createState() => _HomeLectureListState();
 }
 
 class _HomeLectureListState extends State<HomeLectureList> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,7 +67,7 @@ class _HomeLectureListState extends State<HomeLectureList> {
       padding: const EdgeInsets.only(left: 16.0),
       child: Center(
         child: Text(
-          "추천과목",
+          widget.title,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: "Roboto",
