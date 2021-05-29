@@ -197,17 +197,24 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
       );
     }
     return Container(
-        child: Text("이미지 없음",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "Roboto",
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.w400,
-              fontSize: 15,
-              height: Helper.getTextHeightRatio(height: 20, fontSize: 15),
-              letterSpacing: 0,
-              color: ColorList.white,
-            )));
+        margin: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          width: 88,
+          height: 88,
+          child: Center(
+            child: Text("이미지\n없음",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: "Roboto",
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                  height: Helper.getTextHeightRatio(height: 20, fontSize: 15),
+                  letterSpacing: 0,
+                  color: ColorList.black,
+                )),
+          ),
+        ));
   }
 
   Widget _buildOfflineButton() {
