@@ -63,11 +63,10 @@ class HomeFailure extends HomeState {
 class LoadCompleted extends HomeState {
   LoadCompleted(
       {List<Course>? freeCourses,
-        List<Course>? recommendedCourses,
-        bool? hasReachedMax})
+      List<Course>? recommendedCourses,
+      bool? hasReachedMax})
       : super(
-      freeCourses: freeCourses,
-      recommendedCourses: recommendedCourses,
-      hasReachedMax: hasReachedMax);
+            freeCourses: freeCourses,
+            recommendedCourses: recommendedCourses,
+            hasReachedMax: hasReachedMax);
 }
-

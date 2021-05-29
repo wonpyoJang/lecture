@@ -33,7 +33,6 @@ class LectureTotalScreen extends StatefulWidget {
 }
 
 class _LectureTotalScreenState extends State<LectureTotalScreen> {
-
   ScrollController? controller;
   bool isLoadCompleted = false;
   PublishSubject<bool> scrollEvents = PublishSubject<bool>();
@@ -42,16 +41,17 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
   void initState() {
     super.initState();
     controller = new ScrollController()..addListener(_scrollListener);
-    scrollEvents.stream.throttle((_) => TimerStream(true, Duration(seconds: 2))).listen((event) {
-      if(isLoadCompleted) {
+    scrollEvents.stream
+        .throttle((_) => TimerStream(true, Duration(seconds: 2)))
+        .listen((event) {
+      if (isLoadCompleted) {
         return;
       }
 
       if (controller!.position.extentAfter > 500) {
-        if(widget.isFree) {
-          BlocProvider.of<HomeBloc>(context)
-            ..add(LoadMoreFreeCoursesEvent());
-        } else if(widget.isRecommended){
+        if (widget.isFree) {
+          BlocProvider.of<HomeBloc>(context)..add(LoadMoreFreeCoursesEvent());
+        } else if (widget.isRecommended) {
           BlocProvider.of<HomeBloc>(context)
             ..add(LoadMoreRecommendedCoursesEvent());
         }
@@ -120,19 +120,24 @@ class _LectureTotalScreenState extends State<LectureTotalScreen> {
         listeners: [
           BlocListener<HomeBloc, HomeState>(
             listenWhen: (previousState, state) {
-            return (previousState is HomeSuccess) && (state is HomeSuccess);
-          },
-          listener: (context, state) {
-            final snackBar = SnackBar(content: Text('새로고침 되었습니다.'), duration: Duration(microseconds: 300),);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          },),
+              return (previousState is HomeSuccess) && (state is HomeSuccess);
+            },
+            listener: (context, state) {
+              final snackBar = SnackBar(
+                content: Text('새로고침 되었습니다.'),
+                duration: Duration(microseconds: 300),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+          ),
           BlocListener<HomeBloc, HomeState>(
             listenWhen: (previousState, state) {
               return state is LoadCompleted;
             },
             listener: (context, state) {
               isLoadCompleted = true;
-            },),
+            },
+          ),
         ],
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
